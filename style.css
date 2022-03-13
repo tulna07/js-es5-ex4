@@ -1,0 +1,149 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+#body {
+  background: #fc354c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #0abfbc,
+    #fc354c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #0abfbc,
+    #fc354c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.form-box {
+  margin-top: 45px;
+  overflow: hidden;
+  border-radius: 20px;
+
+  background-color: white;
+  width: 1000px;
+  height: 530px;
+
+  position: relative;
+}
+
+.form-box > .col-5,
+.form-box > .col-7 {
+  padding: 0;
+}
+
+.form-box__img {
+  width: 100%;
+  height: 100%;
+}
+
+.question {
+  display: none;
+}
+
+.question--active {
+  display: flex;
+}
+
+.form-group {
+  padding-left: 10px;
+}
+
+.form-group > label {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.form-group > select:focus {
+  outline: none;
+}
+
+.btn-q-show-list {
+  margin-top: 20px;
+}
+
+.btn-q-show {
+  font-size: 13px;
+}
+
+.btn-q-show--active,
+.btn-q-show--active:hover {
+  background-color: #fc4352;
+}
+
+#btn-steps-show {
+  color: #000;
+  font-size: 13px;
+  margin-left: 26px;
+}
+
+#steps-box {
+  display: none;
+  color: #fff;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#steps-box::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#steps-box-content {
+  font-size: 15px;
+}
+
+#close-steps-box {
+  font-size: 24px;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+#q2-result {
+  font-size: 40px;
+  width: 400px;
+  text-align: center;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input {
+  padding: 8px 20px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+}
+
+#q3-result {
+  width: 90%;
+}
+
+/* @media (min-height: 1200px) {
+  .container {
+    max-width: 1280px;
+  }
+} */

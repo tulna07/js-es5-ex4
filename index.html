@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.boba.vn/static/san-pham/do-choi-tre-em/do-choi-phat-trien-tri-tue/the-gioi-tro-choi-rubik/123dfisd.png"
+      type="image/x-icon"
+    />
+    <title>JS Ex4</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Animate CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="body">
+    <div class="container">
+      <div class="row">
+        <div
+          class="form-box d-flex justify-content-center mx-auto animate__animated animate__zoomIn"
+        >
+          <div class="col-5">
+            <div
+              id="steps-box"
+              class="position-absolute animate__animated animate__fadeIn"
+            >
+              <i
+                id="close-steps-box"
+                class="fa-solid fa-xmark position-absolute"
+              ></i>
+              <p id="steps-box-content" class="position-relative"></p>
+            </div>
+            <img
+              class="form-box__img"
+              src="https://images.unsplash.com/photo-1587093336587-eeca6cb17cf2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
+              alt="a random img"
+            />
+          </div>
+          <div class="col-7">
+            <ul class="btn-q-show-list d-flex justify-content-around">
+              <li>
+                <button class="btn btn-q-show btn-warning text-capitalize">
+                  <strong>Question 1</strong>
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-q-show btn-warning text-capitalize">
+                  <strong>Question 2</strong>
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-q-show btn-warning text-capitalize">
+                  <strong>Question 3</strong>
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-q-show btn-warning text-capitalize">
+                  <strong>Question 4</strong>
+                </button>
+              </li>
+            </ul>
+
+            <button id="btn-steps-show" class="btn btn-info text-capitalize">
+              <strong>Show Steps</strong>
+            </button>
+
+            <hr />
+
+            <!-- Question 1 form -->
+            <div class="question question-1">
+              <div class="col-5">
+                <form class="form-group text-center">
+                  <label for="number1">The first number</label><br />
+                  <input
+                    class="q1-input"
+                    type="text"
+                    placeholder="Enter the first number"
+                  /><br />
+                  <label for="number2">The second number</label><br />
+                  <input
+                    class="q1-input"
+                    type="text"
+                    placeholder="Enter the second number"
+                  /><br />
+                  <label for="number3">The third number</label><br />
+                  <input
+                    class="q1-input"
+                    type="text"
+                    placeholder="Enter the third number"
+                  /><br />
+                  <a href="#" id="btn-q1-submit" class="btn btn-warning mt-4"
+                    >SUBMIT</a
+                  >
+                </form>
+              </div>
+              <div class="col-7">
+                <p id="q1-result" class="alert alert-info mt-2">
+                  Notification here ❗
+                </p>
+              </div>
+            </div>
+
+            <!-- Question 2 form -->
+            <div class="question question-2">
+              <form class="form-group" action="">
+                <label for="family-members"
+                  >🤖: "Who are using this computer?"</label
+                >
+                <select
+                  id="family-members"
+                  name="family-member-list"
+                  form="family-member-list"
+                >
+                  <option value="Empty">No one</option>
+                  <option value="B">👨🏻 Bố</option>
+                  <option value="M">👩🏻 Mẹ</option>
+                  <option value="A">👦🏻 Anh trai</option>
+                  <option value="E">👩🏻‍🦱 Em gái</option>
+                </select>
+              </form>
+              <p id="q2-result"></p>
+            </div>
+
+            <!-- Question 3 form -->
+            <div class="question question-3">
+              <div class="col-5">
+                <form class="form-group text-center">
+                  <label for="number1">The first number</label><br />
+                  <input
+                    class="q3-input"
+                    type="text"
+                    placeholder="Enter the first number"
+                  /><br />
+                  <label for="number2">The second number</label><br />
+                  <input
+                    class="q3-input"
+                    type="text"
+                    placeholder="Enter the second number"
+                  /><br />
+                  <label for="number3">The third number</label><br />
+                  <input
+                    class="q3-input"
+                    type="text"
+                    placeholder="Enter the third number"
+                  /><br />
+                  <a href="#" id="btn-q3-submit" class="btn btn-warning mt-4"
+                    >SUBMIT</a
+                  >
+                </form>
+              </div>
+              <div class="col-7">
+                <p id="q3-result" class="alert alert-info mt-2">
+                  Notification here ❗
+                </p>
+              </div>
+            </div>
+
+            <!-- Question 4 form -->
+            <div class="question question-4">
+              <div class="col-5">
+                <form class="form-group text-center">
+                  <label for="number1">The first edge</label><br />
+                  <input
+                    class="q4-input"
+                    type="text"
+                    placeholder="Enter the first edge"
+                  /><br />
+                  <label for="number2">The second edge</label><br />
+                  <input
+                    class="q4-input"
+                    type="text"
+                    placeholder="Enter the second edge"
+                  /><br />
+                  <label for="number3">The third edge</label><br />
+                  <input
+                    class="q4-input"
+                    type="text"
+                    placeholder="Enter the third edge"
+                  /><br />
+                  <a href="#" id="btn-q4-submit" class="btn btn-warning mt-4"
+                    >SUBMIT</a
+                  >
+                </form>
+              </div>
+              <div class="col-7">
+                <p id="q4-result" class="alert alert-info mt-2">
+                  Notification here ❗
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Main JS -->
+    <script src="main.js"></script>
+  </body>
+</html>
