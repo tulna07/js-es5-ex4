@@ -24,16 +24,16 @@ const q1Steps = `<strong style="text-decoration: underline;">Đề bài:</strong
    <strong>- Bước 3:</strong> Nếu hợp lệ, xét xem năm đó là năm nhuận hay không để đưa ra số ngày của tháng nhuận và số ngày mặc định của các tháng còn lại.<br>
    <strong>- Bước 4:</strong>  Xuất ra số ngày trong tháng của tháng, năm người dùng nhập vào.<br>
   <strong>Đầu ra:</strong> Xuất ra số ngày trong tháng của tháng, năm người dùng nhập vào.`,
-  q3Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Cho 3 số. Viết chương trình xuất ra có bao nhiêu số lẻ và bao nhiêu số chẵn.<br>
+  q3Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình nhập vào số nguyên có 3 chữ số. In ra cách đọc nó.<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
-  <strong>Đầu vào:</strong> Nhập giá trị bất kỳ vào trong 3 ô inputs.<br>
+  <strong>Đầu vào:</strong> Nhập giá trị bất kỳ vào trong ô input.<br>
   <strong>Xử lý:</strong><br>
-   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị vào trong 3 inputs.<br>
-   <strong>- Bước 2:</strong> Lấy giá trị nhận được từ giao diện, lọc ra xem có phải các giá trị nhận được là số nguyên hay không.<br>
-   <strong>- Bước 3:</strong> Nếu không là số nguyên thì xét số tiếp theo.<br>
-   <strong>- Bước 4:</strong> Nếu là số nguyên thì xét xem là số chẵn hay số lẻ, sau đó tăng biến đếm số lượng số chẵn, số lẻ lên, đồng thời đưa vào mảng chứa các số chẵn, số lẻ tương ứng.<br>
-   <strong>- Bước 5:</strong> Xuất kết quả nhận được từ bước 4 ra giao diện sau khi đã xét xong cả 3 số.<br>
-  <strong>Đầu ra:</strong> Xuất ra số lượng số lẻ, là những số nào, tương tự đối với số chẵn.`,
+   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị vào trong ô input.<br>
+   <strong>- Bước 2:</strong> Lấy giá trị nhận được từ giao diện, xét xem có phải là số nguyên có 3 chữ số hay không.<br>
+   <strong>- Bước 3:</strong> Nếu không là số nguyên 3 chữ số thì in ra thông báo, kết thúc chương trình.<br>
+   <strong>- Bước 4:</strong> Nếu là số nguyên 3 chữ số thì lấy từng vị trí hàng trăm, hàng chục, hàng đơn vị sau đó sử dụng điều kiện để đọc ra số tương ứng.<br>
+   <strong>- Bước 5:</strong> Xuất kết quả nhận được từ bước 4 ra giao diện sau.<br>
+  <strong>Đầu ra:</strong> Xuất ra cách đọc số nguyên có 3 chữ số.`,
   q4Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình cho nhập 3 cạnh của tam giác. Hãy cho biết đó là tam giác gì trong 3 loại: tam giác vuông, tam giác đều, tam giác cân.<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
   <strong>Đầu vào:</strong> Nhập giá trị 3 cạnh tam giác vào 3 ô inputs vào giao diện.<br>
@@ -180,32 +180,90 @@ q2SubmitBtn.onclick = function () {
 };
 
 // ------- QUESTION 3 -------
-const numbers = document.getElementsByClassName("q3-input"),
+const number = document.getElementById("q3-input"),
   q3SubmitBtn = document.getElementById("btn-q3-submit"),
   q3Result = document.getElementById("q3-result");
 
+const reader1 = [
+  "",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+];
+
+const reader2 = [
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen",
+];
+
+const reader3 = [
+  "ten",
+  "eleven",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety",
+];
+
 q3SubmitBtn.onclick = function () {
-  var odd = 0,
-    even = 0;
-
-  const oddNums = [],
-    evenNums = [];
-
-  for (let i = 0; i < numbers.length; ++i) {
-    // Cases:
-    // numbers[i].value is a string
-    // +numbers[i].value convert string to Number
-    //     while return NaN if cannot convert
-
-    // If the +numbers[i].valuer is not an integer -> continue
-    if (!Number.isInteger(+numbers[i].value)) continue;
-
-    !(numbers[i].value % 2)
-      ? ++even && evenNums.push(numbers[i].value)
-      : ++odd && oddNums.push(numbers[i].value);
+  if (
+    !Number.isInteger(+number.value) ||
+    ((+number.value < 100 || +number.value > 999) &&
+      (+number.value < -999 || +number.value > -100))
+  ) {
+    q3Result.innerHTML = "🚫 Invalid.";
+    return;
   }
 
-  q3Result.innerHTML = `- There are <strong>${odd} odd</strong> number(s) which are <strong>${oddNums.toString()}</strong><br> - There are <strong>${even} even</strong> number(s) which are <strong>${evenNums.toString()}</strong>`;
+  var result = "";
+
+  var numberValue = +number.value;
+  if (numberValue < 0) {
+    result += "negative ";
+    numberValue = -numberValue;
+  }
+
+  var unitPlace = numberValue % 10,
+    tenPlace = Math.floor(numberValue / 10) % 10,
+    hundredPlace = Math.floor(numberValue / 100);
+
+  result += `${reader1[hundredPlace]} hundred`;
+
+  if (!tenPlace && !hundredPlace) {
+    q3Result.innerHTML = result;
+    return;
+  }
+
+  if (!tenPlace) {
+    q3Result.innerHTML = result + ` ${reader1[unitPlace]}`;
+    return;
+  }
+
+  if (tenPlace === 1) {
+    q3Result.innerHTML = result + ` ${reader2[unitPlace]}`;
+    return;
+  }
+
+  q3Result.innerHTML = result + ` ${reader3[tenPlace]} ${reader1[unitPlace]}`;
 };
 // ------- QUESTION 4 -------
 const edges = document.getElementsByClassName("q4-input"),
