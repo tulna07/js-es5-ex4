@@ -34,16 +34,14 @@ const q1Steps = `<strong style="text-decoration: underline;">Đề bài:</strong
    <strong>- Bước 4:</strong> Nếu là số nguyên 3 chữ số thì lấy từng vị trí hàng trăm, hàng chục, hàng đơn vị sau đó sử dụng điều kiện để đọc ra số tương ứng.<br>
    <strong>- Bước 5:</strong> Xuất kết quả nhận được từ bước 4 ra giao diện sau.<br>
   <strong>Đầu ra:</strong> Xuất ra cách đọc số nguyên có 3 chữ số.`,
-  q4Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình cho nhập 3 cạnh của tam giác. Hãy cho biết đó là tam giác gì trong 3 loại: tam giác vuông, tam giác đều, tam giác cân.<br>
+  q4Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Cho biết tên và tọa độ nhà của 3 sinh viên. Cho biết tọa độ của trường đại học. Viết chương trình in tên sinh viên xa trường nhất.<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
-  <strong>Đầu vào:</strong> Nhập giá trị 3 cạnh tam giác vào 3 ô inputs vào giao diện.<br>
+  <strong>Đầu vào:</strong> Nhập tọa tên, tọa độ của 3 sinh viên và tọa độ trường.<br>
   <strong>Xử lý:</strong><br>
-   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị 3 cạnh tam giác vào 3 ô input vào giao diện.<br>
-   <strong>- Bước 2:</strong> Lấy giá trị nhận được từ giao diện, xét xem các cạnh này là cạnh của một tam giác hay không.<br>
-   <strong>- Bước 3:</strong> Nếu không là cạnh của tam giác thì in ra thông báo và kết thúc xét loại tam giác.<br>
-   <strong>- Bước 4:</strong> Nếu là 3 cạnh của một tam giác thì xét điều kiện tam giác đều, tam giác cân, tam giác vuông.<br>
-   <strong>- Bước 5:</strong> Xuất kết quả tam giác tương ứng từ bước 4 ra giao diện sau khi đã xét xong cả 3 loại tam giác.<br>
-  <strong>Đầu ra:</strong> Xuất ra loại tam giác tương ứng nếu là tam giác, không thì xuất ra không đủ điều kiện tạo thành tam giác.`;
+   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị tọa độ, tên của sinh viên và tọa độ trường vào các ô input.<br>
+   <strong>- Bước 2:</strong> Lấy giá trị từ giao diện dùng công thức tính khoảng cách giữa 2 điểm để tìm ra khoảng cách của mỗi sinh viên với trường, sau đó tìm ra khoảng cách lớn nhất để tìm ra sinh viên xa trường nhất.<br>
+   <strong>- Bước 3:</strong> Xuất ra kết quả sinh viên ở xa trường nhất tìm được ở bước 2 cùng tọa độ tương ứng.<br>
+  <strong>Đầu ra:</strong> Xuất ra tên sinh viên xa trường nhất.`;
 
 const qSteps = [q1Steps, q2Steps, q3Steps, q4Steps];
 
@@ -266,37 +264,60 @@ q3SubmitBtn.onclick = function () {
   q3Result.innerHTML = result + ` ${reader3[tenPlace]} ${reader1[unitPlace]}`;
 };
 // ------- QUESTION 4 -------
-const edges = document.getElementsByClassName("q4-input"),
+const student1 = document.getElementsByClassName("student1-input"),
+  student2 = document.getElementsByClassName("student2-input"),
+  student3 = document.getElementsByClassName("student3-input"),
+  school = document.getElementsByClassName("school-input"),
   q4SubmitBtn = document.getElementById("btn-q4-submit"),
-  q4Result = document.getElementById("q4-result");
+  q4Result = document.getElementById("q4-result"),
+  studentNames = document.getElementsByClassName("student-name"),
+  closeQ4ResultBtn = document.getElementById("close-q4-result");
+
+closeQ4ResultBtn.onclick = function () {
+  q4Result.style.display = "none";
+};
 
 q4SubmitBtn.onclick = function () {
-  q4Result.innerHTML = "";
+  const STUDENT_1_X = +student1[0].value;
+  const STUDENT_1_Y = +student1[1].value;
+  const STUDENT_2_X = +student2[0].value;
+  const STUDENT_2_Y = +student2[1].value;
+  const STUDENT_3_X = +student3[0].value;
+  const STUDENT_3_Y = +student3[1].value;
+  const SCHOOL_X = +school[0].value;
+  const SCHOOL_Y = +school[1].value;
 
-  const edge1 = +edges[0].value,
-    edge2 = +edges[1].value,
-    edge3 = +edges[2].value;
+  const distBetweenStudent1AndSchool = Math.sqrt(
+    (SCHOOL_X - STUDENT_1_X) ** 2 + (SCHOOL_Y - STUDENT_1_Y) ** 2
+  );
+  const distBetweenStudent2AndSchool = Math.sqrt(
+    (SCHOOL_X - STUDENT_2_X) ** 2 + (SCHOOL_Y - STUDENT_2_Y) ** 2
+  );
+  const distBetweenStudent3AndSchool = Math.sqrt(
+    (SCHOOL_X - STUDENT_3_X) ** 2 + (SCHOOL_Y - STUDENT_3_Y) ** 2
+  );
 
-  if (
-    !(edge1 + edge2 > edge3 && edge1 + edge3 > edge2 && edge2 + edge3 > edge1)
-  ) {
-    q4Result.innerHTML = `🚫These 3 edges cannot form a triangle.`;
-    return;
-  }
+  const hash = {};
+  hash[studentNames[0].value] = distBetweenStudent1AndSchool;
+  hash[studentNames[1].value] = distBetweenStudent2AndSchool;
+  hash[studentNames[2].value] = distBetweenStudent3AndSchool;
 
-  // Tam giac can
-  if (edge1 === edge2 || edge1 === edge3 || edge2 === edge3)
-    q4Result.innerHTML += `- These 3 edges form a <strong>isosceles triangle</strong>.<br>`;
+  const longestDist = Math.max(
+    distBetweenStudent1AndSchool,
+    distBetweenStudent2AndSchool,
+    distBetweenStudent3AndSchool
+  );
 
-  // Tam giac deu
-  if (edge1 === edge2 && edge2 === edge3)
-    q4Result.innerHTML += `- These 3 edges form a <strong>equilateral triangle</strong>.<br>`;
+  console.log(longestDist);
+  var result = "";
 
-  // Tam giac vuong
-  if (
-    edge1 ** 2 + edge2 ** 2 === edge3 ** 2 ||
-    edge1 ** 2 + edge3 ** 2 === edge2 ** 2 ||
-    edge2 ** 2 + edge3 ** 3 === edge1 ** 2
-  )
-    q4Result.innerHTML += `- These 3 edges form a <strong>right-angled  triangle</strong>.<br>`;
+  for (const student in hash)
+    if (hash[student] === longestDist) result += `${student} `;
+
+  q4Result.style.display = "block";
+  q4Result.innerHTML = `<i id="close-q4-result"
+  class="fa-solid fa-xmark position-absolute"></i>`;
+  q4Result.innerHTML += ` ${result}is/are the farthest from school: ${longestDist.toFixed(
+    2
+  )}.`;
 };

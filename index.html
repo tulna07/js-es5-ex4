@@ -181,34 +181,85 @@
             </div>
 
             <!-- Question 4 form -->
-            <div class="question question-4">
-              <div class="col-5">
-                <form class="form-group text-center">
-                  <label for="number1">The first edge</label><br />
-                  <input
-                    class="q4-input"
-                    type="text"
-                    placeholder="Enter the first edge"
-                  /><br />
-                  <label for="number2">The second edge</label><br />
-                  <input
-                    class="q4-input"
-                    type="text"
-                    placeholder="Enter the second edge"
-                  /><br />
-                  <label for="number3">The third edge</label><br />
-                  <input
-                    class="q4-input"
-                    type="text"
-                    placeholder="Enter the third edge"
-                  /><br />
-                  <a href="#" id="btn-q4-submit" class="btn btn-warning mt-4"
-                    >SUBMIT</a
-                  >
-                </form>
-              </div>
-              <div class="col-7">
+            <div class="question question-4 position-relative">
+              <div
+                class="question-4-content d-flex flex-column align-items-center mx-auto"
+              >
+                <div class="form-groups d-flex justify-content-center">
+                  <form class="form-group text-center">
+                    <input
+                      class="student-name"
+                      type="text"
+                      placeholder="Enter student 1 name"
+                    /><br />
+                    <input
+                      class="student1-input"
+                      type="text"
+                      placeholder="Enter X coordinate"
+                    /><br />
+                    <input
+                      class="student-name"
+                      type="text"
+                      placeholder="Enter student 2 name"
+                    /><br />
+                    <input
+                      class="student2-input"
+                      type="text"
+                      placeholder="Enter X coordinate"
+                    /><br />
+                    <input
+                      class="student-name"
+                      type="text"
+                      placeholder="Enter student 3 name"
+                    /><br />
+                    <input
+                      class="student3-input"
+                      type="text"
+                      placeholder="Enter X coordinate"
+                    /><br />
+                    <input
+                      class="school-input"
+                      type="text"
+                      placeholder="Enter school X coordinate"
+                    /><br />
+                  </form>
+                  <form class="form-group text-center">
+                    <label for="number1">🧑🏻</label><br />
+                    <input
+                      class="student1-input"
+                      type="text"
+                      placeholder="Enter Y coordinate"
+                    /><br />
+                    <label for="number2">🧑🏻</label><br />
+                    <input
+                      class="student2-input"
+                      type="text"
+                      placeholder="Enter Y coordinate"
+                    /><br />
+                    <label for="number3">🧑🏻</label><br />
+                    <input
+                      class="student3-input"
+                      type="text"
+                      placeholder="Enter Y coordinate"
+                    /><br />
+                    <input
+                      id="last-input"
+                      class="school-input"
+                      type="text"
+                      placeholder="Enter school Y coordinate"
+                    /><br />
+                  </form>
+                </div>
+
+                <button id="btn-q4-submit" class="btn btn-warning">
+                  SUBMIT
+                </button>
+
                 <p id="q4-result" class="alert alert-info mt-2">
+                  <i
+                    id="close-q4-result"
+                    class="fa-solid fa-xmark position-absolute"
+                  ></i>
                   Notification here ❗
                 </p>
               </div>
