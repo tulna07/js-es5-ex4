@@ -15,14 +15,15 @@ const q1Steps = `<strong style="text-decoration: underline;">Đề bài:</strong
  <strong>- Bước 2:</strong> Tăng ngày hiện tại (nhận được từ người dùng) 1 ngày, kiểm tra điều kiện để đưa ra ngày, tháng, năm phù hợp tiếp theo, giảm ngày hiện tại (nhận được từ người dùng) 1 ngày, kiểm tra điều kiện để đưa ra ngày, tháng, năm phù hợp trước đó.<br>
  <strong>- Bước 3:</strong> Xuất kết quả tương ứng từ bước 2 (ngày, tháng, năm của ngày tiếp theo và ngày trước đó) ra giao diện.<br>
 <strong>Đầu ra:</strong> Xuất ra ngày, tháng, năm của ngày tiếp theo và ngày trước đó.`,
-  q2Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình “Chào hỏi” các thành viên trong gia đình với các đặc điểm. Đầu tiên máy sẽ hỏi ai sử dụng máy. Sau đó dựa vào câu trả lời và đưa ra lời chào phù hợp. Giả sử trong gia đình có 4 thành viên: Bố (B), Mẹ (M), anh Trai (A) và Em gái (E).<br>
+  q2Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình nhập vào tháng, năm. Cho biết tháng đó có bao nhiêu ngày. (bao gồm tháng của năm nhuận).<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
-  <strong>Đầu vào:</strong> Chọn một trong bốn thành viên trong gia đình gồm Bố, Mẹ, Anh trai và Em gái.<br>
+  <strong>Đầu vào:</strong> Nhập lần lượt giá trị tháng, năm trong 2 ô inputs.<br>
   <strong>Xử lý:</strong><br>
-   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng chọn 1 trong 4 options gồm Bố, Mẹ, Anh trai và Em gái.<br>
-   <strong>- Bước 2:</strong> Lấy giá trị nhận được từ giao diện, so sánh bằng switch statement để đưa ra kết quả phù hợp.<br>
-   <strong>- Bước 3:</strong> Xuất kết quả nhận được từ bước 2 ra giao diện.<br>
-  <strong>Đầu ra:</strong> Xuất ra lời chào phù hợp với thành viên trong gia đình được chọn.`,
+   <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị tháng, năm.<br>
+   <strong>- Bước 2:</strong> Kiểm tra xem tháng và năm nhập vào có hợp lệ chưa, nếu không hợp lệ in ra thông báo và kết thúc chương trình.<br>
+   <strong>- Bước 3:</strong> Nếu hợp lệ, xét xem năm đó là năm nhuận hay không để đưa ra số ngày của tháng nhuận và số ngày mặc định của các tháng còn lại.<br>
+   <strong>- Bước 4:</strong>  Xuất ra số ngày trong tháng của tháng, năm người dùng nhập vào.<br>
+  <strong>Đầu ra:</strong> Xuất ra số ngày trong tháng của tháng, năm người dùng nhập vào.`,
   q3Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Cho 3 số. Viết chương trình xuất ra có bao nhiêu số lẻ và bao nhiêu số chẵn.<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
   <strong>Đầu vào:</strong> Nhập giá trị bất kỳ vào trong 3 ô inputs.<br>
@@ -128,35 +129,54 @@ q1SubmitBtn.onclick = function () {
 };
 
 // ------- QUESTION 2 -------
-const familyMembers = document.getElementById("family-members"),
+// Leap year calculation
+// Reference: https://www.wikihow.com/Calculate-Leap-Years
+function isLeapYear(year) {
+  if (!(year % 4)) {
+    if (!(year % 100)) {
+      if (!(year % 400)) return true;
+      return false;
+    }
+    return true;
+  }
+
+  return false;
+}
+
+const month_year = document.getElementsByClassName("q2-input"),
+  q2SubmitBtn = document.getElementById("btn-q2-submit"),
   q2Result = document.getElementById("q2-result");
 
-familyMembers.onchange = function () {
-  q2Result.innerHTML = "Processing";
-  let counter = 0;
-  let myVar = setInterval(function () {
-    q2Result.innerHTML += " . ";
-    counter++;
-    if (counter == 4) {
-      clearInterval(myVar);
-      switch (familyMembers.value) {
-        case "B":
-          q2Result.innerHTML = "👨🏻 Hello Bố!";
-          break;
-        case "M":
-          q2Result.innerHTML = "👩🏻 Hello Mẹ!";
-          break;
-        case "A":
-          q2Result.innerHTML = "👦🏻 Hello Anh trai!";
-          break;
-        case "E":
-          q2Result.innerHTML = "👩🏻‍🦱 Hello Em gái!";
-          break;
-        default:
-          break;
-      }
-    }
-  }, 700);
+q2SubmitBtn.onclick = function () {
+  const month = +month_year[0].value,
+    year = +month_year[1].value;
+
+  if (
+    !Number.isInteger(month) ||
+    !Number.isInteger(year) ||
+    month * year <= 0
+  ) {
+    q2Result.innerHTML = `🚫Invalid input.`;
+    return;
+  }
+
+  const months = [
+    undefined,
+    31,
+    isLeapYear(year) ? 29 : 28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
+
+  q2Result.innerHTML = `<strong>${month}/${year}</strong> has ${months[month]} days.`;
 };
 
 // ------- QUESTION 3 -------

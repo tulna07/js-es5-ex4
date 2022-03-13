@@ -132,23 +132,30 @@
 
             <!-- Question 2 form -->
             <div class="question question-2">
-              <form class="form-group" action="">
-                <label for="family-members"
-                  >🤖: "Who are using this computer?"</label
-                >
-                <select
-                  id="family-members"
-                  name="family-member-list"
-                  form="family-member-list"
-                >
-                  <option value="Empty">No one</option>
-                  <option value="B">👨🏻 Bố</option>
-                  <option value="M">👩🏻 Mẹ</option>
-                  <option value="A">👦🏻 Anh trai</option>
-                  <option value="E">👩🏻‍🦱 Em gái</option>
-                </select>
-              </form>
-              <p id="q2-result"></p>
+              <div class="col-5">
+                <form class="form-group text-center">
+                  <label for="number1">Month</label><br />
+                  <input
+                    class="q2-input"
+                    type="text"
+                    placeholder="Enter month"
+                  /><br />
+                  <label for="number2">Year</label><br />
+                  <input
+                    class="q2-input"
+                    type="text"
+                    placeholder="Enter year"
+                  /><br />
+                  <a href="#" id="btn-q2-submit" class="btn btn-warning mt-4"
+                    >SUBMIT</a
+                  >
+                </form>
+              </div>
+              <div class="col-7">
+                <p id="q2-result" class="alert alert-info mt-2">
+                  Notification here ❗
+                </p>
+              </div>
             </div>
 
             <!-- Question 3 form -->
