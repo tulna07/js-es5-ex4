@@ -7,16 +7,14 @@ const questions = document.getElementsByClassName("question"),
   closeStepBoxBtn = document.getElementById("close-steps-box");
 
 // Steps in 3-block model
-const q1Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Cho người dùng nhập vào 3 số. Viết chương trình xuất 3 số theo thứ tự tăng dần. Giả sử inputs hợp lệ, có thể so sánh số.<br>
+const q1Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình nhập vào ngày, tháng, năm (Giả sử nhập đúng, không cần kiểm tra hợp lệ). Tìm ngày, tháng, năm của ngày tiếp theo, tương tự cho ngày trước đó.<br>
 <strong style="text-decoration: underline;">Lời giải:</strong><br>
-<strong>Đầu vào:</strong> Nhập giá trị bất kỳ vào trong 3 ô inputs.<br>
+<strong>Đầu vào:</strong> Nhập lần lượt giá trị ngày, tháng, năm trong 3 ô inputs.<br>
 <strong>Xử lý:</strong><br>
- <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị vào trong 3 inputs.<br>
- <strong>- Bước 2:</strong> Lấy 2 giá trị ngẫu nhiên từ 3 giá trị nhận được ở giao diện và so sánh, chọn ra một số lớn hơn và một số bé hơn giữa hai số này.<br>
- <strong>- Bước 3:</strong> Lấy số lớn hơn so sánh với số còn lại chưa được xét trong 3 số ở giao diện, nếu số này lớn hơn số được xét lớn hơn ở bước 2 thì ta nhận số này số lớn nhất -> ở bước 2, số lớn hơn sẽ là số trung gian, số bé hơn sẽ là số nhỏ nhất.<br>
- <strong>- Bước 4:</strong> Ngược lại với giả sử ở bước 3 -> số lớn hơn ở bước 2 sẽ là số lớn nhất, sau đó ta lại tiếp tục so sánh 2  số còn lại để tìm ra vị trí của chúng.<br>
- <strong>- Bước 5:</strong> Xuất kết quả tương ứng từ bước 3 hoặc 4 (dãy số theo thứ tự tăng dần đều) ra giao diện.<br>
-<strong>Đầu ra:</strong> Xuất ra ba số theo thứ tự tăng dần đều.`,
+ <strong>- Bước 1:</strong> Thiết kế giao diện, cho người dùng nhập giá trị ngày, tháng, năm.<br>
+ <strong>- Bước 2:</strong> Tăng ngày hiện tại (nhận được từ người dùng) 1 ngày, kiểm tra điều kiện để đưa ra ngày, tháng, năm phù hợp tiếp theo, giảm ngày hiện tại (nhận được từ người dùng) 1 ngày, kiểm tra điều kiện để đưa ra ngày, tháng, năm phù hợp trước đó.<br>
+ <strong>- Bước 3:</strong> Xuất kết quả tương ứng từ bước 2 (ngày, tháng, năm của ngày tiếp theo và ngày trước đó) ra giao diện.<br>
+<strong>Đầu ra:</strong> Xuất ra ngày, tháng, năm của ngày tiếp theo và ngày trước đó.`,
   q2Steps = `<strong style="text-decoration: underline;">Đề bài:</strong> Viết chương trình “Chào hỏi” các thành viên trong gia đình với các đặc điểm. Đầu tiên máy sẽ hỏi ai sử dụng máy. Sau đó dựa vào câu trả lời và đưa ra lời chào phù hợp. Giả sử trong gia đình có 4 thành viên: Bố (B), Mẹ (M), anh Trai (A) và Em gái (E).<br>
   <strong style="text-decoration: underline;">Lời giải:</strong><br>
   <strong>Đầu vào:</strong> Chọn một trong bốn thành viên trong gia đình gồm Bố, Mẹ, Anh trai và Em gái.<br>
@@ -73,35 +71,60 @@ for (let i = 0; i < qShowBtn.length; ++i) {
 }
 
 // ------- QUESTION 1 -------
-const nums = document.getElementsByClassName("q1-input"),
+// Assume that years % 4 === 0 is a leap year,
+// while a none-leap year.
+const date = document.getElementsByClassName("q1-input"),
   q1SubmitBtn = document.getElementById("btn-q1-submit"),
   q1Result = document.getElementById("q1-result");
 
 q1SubmitBtn.onclick = function () {
-  const num1 = +nums[0].value,
-    num2 = +nums[1].value,
-    num3 = +nums[2].value;
+  const currentDay = +date[0].value;
+  var nextDay = currentDay + 1,
+    prevDay = currentDay - 1;
+  const currentMonth = +date[1].value;
+  const currentYear = +date[2].value;
 
-  var smallest, middle, largest;
+  var nextMonth = currentMonth,
+    prevMonth = currentMonth,
+    nextYear = currentYear,
+    prevYear = currentYear;
 
-  (() => {
-    middle = num1 > num2 ? num1 : num2;
-    smallest = middle === num1 ? num2 : num1;
+  const months = {
+    1: 31,
+    2: !(currentYear % 4) ? 29 : 28,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31,
+  };
 
-    if (num3 > middle) {
-      largest = num3;
-      // middle: second largest
-      // smallest: smallest
-      return;
+  if (nextDay > months[currentMonth]) {
+    nextDay = 1;
+    nextMonth++;
+
+    if (nextMonth > 12) {
+      nextMonth = 1;
+      nextYear++;
     }
+  }
 
-    largest = middle;
+  if (!prevDay) {
+    prevDay = months[--prevMonth];
 
-    middle = smallest > num3 ? smallest : num3;
-    smallest = middle == num3 ? smallest : num3;
-  })();
+    if (!prevMonth) {
+      prevDay = 31;
+      prevMonth = 12;
+      prevYear--;
+    }
+  }
 
-  q1Result.innerHTML = `3 numbers in ascending order: ${smallest}, ${middle}, ${largest}.`;
+  q1Result.innerHTML = `<strong>- Current date:</strong> ${currentDay}/${currentMonth}/${currentYear}.<br> <strong>- Next date:</strong> ${nextDay}/${nextMonth}/${nextYear}.<br> <strong>- Prev date:</strong> ${prevDay}/${prevMonth}/${prevYear}.`;
 };
 
 // ------- QUESTION 2 -------
